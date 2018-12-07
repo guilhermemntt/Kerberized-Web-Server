@@ -96,6 +96,10 @@ Segue, portanto, a instalação de cada máquina virtual, iniciando pela referen
 
 1. Múltiplos usuários podem ter permissão de concessão dos tickets. Basta adicionar na tag `Location` adicionada ao arquivo /etc/apache2/apache2.conf demais usuários, tal como `Require user nome_do_usuario1@WEBSERVER.UNIFEI.EDU nome_do_usuario2@WEBSERVER.UNIFEI.EDU`. Da mesma forma, basta simular outras máquinas como Web Clients, adicionando-as devidamente à rede interna e requisitando os tickets de acesso ao KDC.
 
+# Demonstração
+
+![Alt text](sample.gif?raw=true "Demonstração")
+
 # Informações sobre o projeto
 
 ## Grupo
