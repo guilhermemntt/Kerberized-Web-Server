@@ -21,7 +21,6 @@ A seguir é descrito como deve ser feito o setup de cada máquinas, observe que 
 1. Criar as máquinas virtuais no VirtualBox.
 2. Adicionar um adaptador de rede configurado com uma rede interna comum a todas as máquinas. É importante que o endereço MAC seja diferente para todas as máquinas envolvidas.
 3. Definir um fuso-horário comum o qual será utilizado durante a instalação do SO de cada máquina.
-4. Segue, portanto, a instalação de cada máquina virtual, iniciando pela referente ao KDC.
 
 ### Instalação das máquinas
 
@@ -29,8 +28,10 @@ A seguir é descrito como deve ser feito o setup de cada máquinas, observe que 
 2. Após a instalação, checar o hostname através do comando `$hostname`. Caso o hostname difira do desejado, alterá-lo através do comando `$ hostnamectl set-hostname hostname_da_máquina`.
 3. Configurar o endereço IP manualmente como estático, além da máscara e gateway padrão.
 4. Copiar o arquivo `hosts` fornecido da pasta para /etc/, sobrescrevendo o atual. 
-
-Até esse ponto, as máquinas devem ser acessíveis entre si pelo endereço IP e pelo hostname. Continuar a condiguração das mesmas apenas se for possível "alcançar" cada máquina pelo comando ping, por exemplo.
+  
+Até esse ponto, as máquinas devem ser acessíveis entre si pelo endereço IP e pelo hostname. Continuar a condiguração das mesmas apenas se for possível "alcançar" cada máquina pelo comando ping, por exemplo.  
+  
+Segue, portanto, a instalação de cada máquina virtual, iniciando pela referente ao KDC.
 
 # Key Distribution Center (KDC)
 
@@ -97,10 +98,9 @@ Até esse ponto, as máquinas devem ser acessíveis entre si pelo endereço IP e
 
 ## Grupo
 
-Guilherme Marques Netto - 33419  
-Rafael Miranda Ferrari Picolo - 33571  
-Ivan Lacerda de Rezende - 30704  
-
+* Guilherme Marques Netto - 33419  
+* Ivan Lacerda de Rezende - 30704  
+* Rafael Miranda Ferrari Picolo - 33571  
 
 
 
