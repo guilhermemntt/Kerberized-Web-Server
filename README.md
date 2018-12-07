@@ -98,6 +98,8 @@ Segue, portanto, a instalação de cada máquina virtual, iniciando pela referen
 
 # Demonstração
 
+Clique no gif para expandir.
+
 ![Alt text](sample.gif?raw=true "Demonstração")
 
 # Informações sobre o projeto
