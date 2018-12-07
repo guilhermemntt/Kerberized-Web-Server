@@ -30,6 +30,8 @@ A seguir é descrito como deve ser feito o setup de cada máquinas, observe que 
 3. Configurar o endereço IP manualmente como estático, além da máscara e gateway padrão.
 4. Copiar o arquivo `hosts` fornecido da pasta para /etc/, sobrescrevendo o atual. 
 
+Até esse ponto, as máquinas devem ser acessíveis entre si pelo endereço IP e pelo hostname. Continuar a condiguração das mesmas apenas se for possível "alcançar" cada máquina pelo comando ping, por exemplo.
+
 # Key Distribution Center (KDC)
 
 1. Instalar o servidor do Kerberos com `$ sudo apt-get install krb5-kdc krb5-admin-server`.
@@ -46,4 +48,61 @@ A seguir é descrito como deve ser feito o setup de cada máquinas, observe que 
 
 # Web Server (Apache)
 
-1.
+1. Instalar o cliente do Kerberos com `$ sudo apt-get install krb5-user`.
+2. Durante a instalação, o nome do realm requisitado deve ser preeenchido com **WEBSERVER.UNIFEI.EDU**.
+3. A seguir são requisitados os hostnames do servidor do Kerberos e do servidor administrativo. Preencher ambos inputs com **kerberos.unifei.edu**.
+4. Instalar o servidor HTTP Apache Server com `$ sudo apt-get install apache2`.
+5. Instalar o módulo Apache de autenticação do Kerberos com `$ sudo apt-get install libapache2-mod-auth-kerb`.
+6. Adicionar o principal responsável pelo servidor web com `$ kadmin -p webserver/admin -q "addprinc -randkey HTTP/webserver.unifei.edu"`.
+7. Adicionar o arquivo *keytab* ao Kerberos com `$ kadmin -p webserver/admin -q "ktadd -k /etc/apache2/http.keytab HTTP/webserver.unifei.edu"`
+8. Redefinir a propriedade do arquivo *keytab* gerado com `$ chown www-data /etc/apache2/http.keytab`.
+9. Iniciar o principal, requisitando o TGT oo KDC com `$ kinit -k -t /etc/apache2/http.keytab HTTP/webserver.unifei.edu`.
+10. Se tudo ocorrer de acordo com o previsto, o comando `$ klist` deve exibir o(s) tickets adquiridos.
+11. No arquivo /etc/apache2/apache2.conf, adicionar as seguintes linhas:  
+  
+`LoadModule auth_kerb_module /usr/lib/apache2/modules/mod_auth_kerb.so`  
+`<Location />`  
+  `AuthType Kerberos`  
+  `AuthName "Apache Web Server"`  
+  `KrbMethodNegotiate on`  
+  `KrbMethodK5Passwd off`  
+  `Krb5Keytab /etc/apache2/http.keytab`  
+  `Require user teste@WEBSERVER.UNIFEI.EDU`  
+`</Location>`  
+
+
+12. Reiniciar o serviço do Apache com `$ service apache2 force-reload`.
+
+# Web Client (Browser)
+
+1. Instalar o cliente do Kerberos com `$ sudo apt-get install krb5-user`.
+2. Durante a instalação, o nome do realm requisitado deve ser preeenchido com **WEBSERVER.UNIFEI.EDU**.
+3. A seguir são requisitados os hostnames do servidor do Kerberos e do servidor administrativo. Preencher ambos inputs com **kerberos.unifei.edu**.
+4. Acessar o endereço `about:config` no navegador Firefox.
+5. Aceitar os riscos e continuar.
+6. Pesquisar na barra de pesquisas por *network.n*.
+7. Redefinir os valores das variáveis *network.negotiate-auth.delegation-uris* e *network.negotiate-auth.trusted-uris* para **webserver.unifei.edu**.
+
+# Funcionamento
+
+1. Na máquina Web Client, tentar acessar através do Firefox o endereço **webserver.unifei.edu**. Observar que o usuário não está autorizado e a resposta do servidor web é um código 401 (Unauthorized).
+2. Requisitar a autorização ao KDC `$ kinit teste`.
+3. Tentar acessar novamente a página. Agora o acesso é permitido.
+
+## Observações
+
+1. Múltiplos usuários podem ter permissão de concessão dos tickets. Basta adicionar na tag `Location` adicionada ao arquivo /etc/apache2/apache2.conf demais usuários, tal como `Require user nome_do_usuario1@WEBSERVER.UNIFEI.EDU nome_do_usuario2@WEBSERVER.UNIFEI.EDU`. Da mesma forma, basta simular outras máquinas como Web Clients, adicionando-as devidamente à rede interna e requisitando os tickets de acesso ao KDC.
+
+# Informações sobre o projeto
+
+## Grupo
+
+Guilherme Marques Netto - 33419  
+Rafael Miranda Ferrari Picolo - 33571  
+Ivan Lacerda de Rezende - 30704  
+
+
+
+
+
+
