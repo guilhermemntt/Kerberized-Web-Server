@@ -43,7 +43,7 @@ Segue, portanto, a instalação de cada máquina virtual, iniciando pela referen
   
   `addprinc webserver`  
   `addprinc webserver/admin`  
-  `addprinc teste`
+  `addprinc teste`  
   `quit`  
   
 6. Descomentar a última linha do arquivo /etc/krb5kdc/kadm5.acl, para definir os usuários com permissão de administrador.
