@@ -111,6 +111,19 @@ Clique no gif para expandir.
 * Rafael Miranda Ferrari Picolo - 33571  
 
 
+# Nota
 
+Critérios 
+1. README [3]
+  * Detalhamento - 1
+  * Informações do caso de uso escolhido - 0.7
+  * Informações da configuração - 1
+2. Commits [3] - 2.7
+3. .gitignore [1] - 1
+4. Código [3] - 2.8
+5. Pontos extras
+  * Extras (POC, GIF, Video, esforço) - 1
+  * Organização - 0.3
 
-
+Total = 10.0
+(Não é necessariamente a nota final)
